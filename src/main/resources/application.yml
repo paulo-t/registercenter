@@ -1,3 +1,21 @@
 spring:
   profiles:
     active: dev
+  application:
+    name: registerCenter
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    #注册中心刷新readCacheMap的时间，client读取的是readCacheMap
+    #这个时间决定多久会把readWriteCacheMap的缓存更新到readCacheMap
+    response-cache-update-interval-ms: 3000
+    #注册中心readWriteCacheMap失效时间
+    #失效前不会更新，失效后从registry重新读取服务注册信息，registry是一个concurrentHashMap
+    #启用evict后不需要改这个配置
+    response-cache-auto-expiration-in-seconds: 180
+    #启用主动失效，时间间隔为5000ms
+    eviction-interval-timer-in-ms: 5000
+    #关闭自我保护
+    enable-self-preservation: false
